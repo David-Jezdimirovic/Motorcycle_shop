@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Lista motora</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>-->
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+    </head>
+    <body>
+
+        <div th:include="navbar::navigation"></div>
+        <br></br> <br></br>
+        
+        
+        <h4 style="text-align: center" th:text="${userInfo}"></h4>
+        
+
+        <h3 style="text-align: center">Podaci</h3>
+
+        
+        
+        <div class="container" sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">
+            <div class="row">
+                <div class="col-sm-1"></div>
+               
+                        
+                <div class="col-sm-4 table-responsive-md">
+
+                 
+
+                    <table class="table table-bordered table-striped table-sm table-dark">
+                        <caption style="caption-side:top"><h5>Marke</h5></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" >Marka id</th>
+                                <th scope="col">Naziv</th>
+                               <th scope="col"  sec:authorize="isAuthenticated() && hasAuthority('ADMIN')"  >Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="tempMarka : ${marke}" th:object="${marke}">
+                                <th th:text="${tempMarka.markaId}"> </th>
+                                <td th:text="${tempMarka.markaNaziv}" > </td>
+                                <td sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">
+                                    <a th:href="@{/vozilo/deleteMarka(markaId=${tempMarka.markaId})}" 
+                                      
+                                        class="btn btn-danger  my-2 my-sm-0"> 
+                                          Delete
+                                     </a>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-sm-1"></div>
+
+            <!--</div>-->
+            
+            <!--<div class="row">-->
+            
+                <div class="col-sm-1"></div>
+
+                <div class="col-sm-4 ">
+
+                    <table class="table table-bordered table-striped table-sm table-dark">
+                        <caption style="caption-side:top"><h5>Modeli</h5></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Model id</th>
+                                <th scope="col">Marka</th>
+                                <th scope="col">Naziv</th>
+                               <th scope="col"  sec:authorize="isAuthenticated() && hasAuthority('ADMIN')"  >Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr scope="row" th:each="tempModel : ${modeli}" th:object="${modeli}">
+                                <th th:text="${tempModel.modelId}"> </th>
+                                <td th:text="${tempModel.marka.markaNaziv}" > </td>
+                                <td th:text="${tempModel.modelNaziv}" > </td>
+                                 <td sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">
+                                    <a th:href="@{/vozilo/deleteModel(modelId=${tempModel.modelId})}" 
+                                       
+                                        class="btn btn-danger  my-2 my-sm-0"> 
+                                          Delete
+                                     </a>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-sm-1"></div>
+
+            </div>
+            
+        </div>
+        
+       
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+               
+                        
+                <div class="col-sm-8 table-responsive-md">
+
+                    <!--                   
+                                                    <td>
+                                                        <a th:href="@{/admin/showOrderStatusUpdateForm(orderId=${tempOrder.id})}" 
+                                                           sec:authorize="isAuthenticated() && hasRole('ADMIN')"
+                                                           class="btn btn-info btn-md "> 
+                                                            Update  status
+                                                        </a>
+                                                    </td>-->
+
+                    <table class="table table-bordered table-striped table-sm table-dark">
+                        <caption style="caption-side:top"><h5>Motori</h5></caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">Motor id</th>
+                                <th scope="col">Marka</th>
+                                <th scope="col">Model</th>
+                                <th scope="col">Godiste</th>
+                                <th scope="col">Opis</th>
+                                <th scope="col">Cena</th>
+                                <th scope="col">Poruci</th>
+                                 <th scope="col"  sec:authorize="isAuthenticated() && hasAuthority('ADMIN')" >Update</th>
+                                <th scope="col"  sec:authorize="isAuthenticated() && hasAuthority('ADMIN')" >Delete</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="tempMotor : ${motori}" th:object="${motori}">
+                                <th th:text="${tempMotor.motorId}" sec:authorize="isAuthenticated() && hasAuthority('ADMIN')"> </th>
+                                <td th:text="${tempMotor.model.marka.markaNaziv}" > </td>
+                                <td th:text="${tempMotor.model.modelNaziv}" > </td>
+                                <td th:text="${tempMotor.godiste}" > </td>
+                                <td th:text="${tempMotor.opis}" > </td>
+                                <td th:text="${tempMotor.cena}" > </td>
+                                 <td sec:authorize="isAuthenticated()">
+<!--                                    <a th:href="@{/naruciMotor(motorId=${tempMotor.motorId})}" 
+                                    
+                                        class="btn btn-info  my-2 my-sm-0"> 
+                                          Poruci
+                                     </a>-->
+                                    <form th:action="@{'/api/addporudzbina/'+${tempMotor.motorId}+'/'+${korisnik.korisnikId}}" th:method="put">
+                                         <button type="submit"   class="btn btn-info  my-2 my-sm-0" >Poruci</button>
+                                    </form> 
+                                </td>
+                                
+                                <td sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">
+                                    <!--<a th:href="@{/vozilo/updateMotor(motorId=${tempMotor.motorId})}"--> 
+<!--      
+                                        class="btn btn-warning  my-2 my-sm-0"  th:method="delete"> 
+                                          Delete
+                                     </a>-->
+                                       <form th:action="@{/vozilo/updatemotor/__${tempMotor.motorId}__}" th:method="get">
+                                       <!--<form th:action="@{'/api/deletemotor/'+${tempMotor.motorId}}" th:method="delete">-->
+                                            <button type="submit"   class="btn btn-warning  my-2 my-sm-0" >Update</button>
+                                           </form> 
+                                </td>
+                                
+                                <td sec:authorize="isAuthenticated() && hasAuthority('ADMIN')">
+                                    <!--<a th:href="@{/vozilo/deleteMotor(motorId=${tempMotor.motorId})}"--> 
+<!--      
+                                        class="btn btn-danger  my-2 my-sm-0"  th:method="delete"> 
+                                          Delete
+                                     </a>-->
+                                       <form th:action="@{/api/deletemotor/__${tempMotor.motorId}__}" th:method="delete">
+                                       <!--<form th:action="@{'/api/deletemotor/'+${tempMotor.motorId}}" th:method="delete">-->
+                                            <button type="submit"   class="btn btn-danger  my-2 my-sm-0" >Delete</button>
+                                        </form> 
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-sm-1"></div>
+
+            </div>
+        
+        </div>
+        
+    </body>
+</html>

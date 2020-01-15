@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+    </head>
+    <body>
+        
+         <div th:include="navbar::navigation"></div>
+         <br></br> <br></br>
+         
+<!--        <div class="wrapper offset-md-4">         /authenticateTheUser     /login-->
+            <div class="col-md-6 offset-md-3">
+            <form class="form-signin" th:action="@{/login}" method="POST">       
+                <h2 class="form-signin-heading">Please login</h2>
+                <br/>
+                <input type="text" class="form-control" name="email" placeholder="email" required="" autofocus="" />
+                <br/>
+                <input type="password" class="form-control" name="sifra" placeholder="sifra" required=""/>      
+                <br/>
+               
+                <br/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+            </form>
+            </div>
+        </div>
+    </body>
+</html>
